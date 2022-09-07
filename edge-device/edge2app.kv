@@ -1,0 +1,19 @@
+
+BoxLayout:
+	orientation: 'vertical'
+	Label:
+		text: 'automatic light'
+	Switch:
+		on_active: app.toggle_automatic_light(self.active)
+		id: switch
+		        
+	Switch: 
+		on_active: app.toggle_light(self.active)
+		id: switch_light
+	
+	Label:
+		id: temp_lbl
+		text: 'temperature'
+		font_size: 100
+	
+
