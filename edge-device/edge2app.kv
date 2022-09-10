@@ -1,19 +1,75 @@
-
+#:kivy 2.1.0
 BoxLayout:
 	orientation: 'vertical'
-	Label:
-		text: 'automatic light'
-	Switch:
-		on_active: app.toggle_automatic_light(self.active)
-		id: switch
-		        
-	Switch: 
-		on_active: app.toggle_light(self.active)
-		id: switch_light
-	
-	Label:
-		id: temp_lbl
-		text: 'temperature'
-		font_size: 100
-	
+	canvas:
+		Color:
+			rgba: (14/255, 46/255, 61/255,0.5)
+		Rectangle:
+			pos: self.pos
+			size: self.size
 
+	BoxLayout:
+		canvas:
+			Color:
+				rgba: (13/255, 58/255, 37/255)
+			Rectangle:
+				pos: self.pos
+				size: self.size
+		Label:
+			text: 'State'
+			font_size: 20
+			bold: True
+		Label:
+			text: 'Manual Control'
+			bold: True
+			font_size: 20
+		Label:
+			text: 'Automatic Control'				
+			bold: True
+			font_size: 20
+
+	BoxLayout:
+		Label:
+			id: light_lbl
+			text: 'Light: x'
+		Switch:
+			id: light_sw
+			on_active: app.toggle_light(self.active)
+		Switch:
+			id: aut_light_sw
+			on_active: app.toggle_automatic_light(self.active)
+	BoxLayout:
+		Label:
+			id: fan_lbl
+			text: 'Fan: x'
+		Switch:
+			id: fan_sw
+			on_active: app.toggle_fan(self.active)
+		Switch:
+			id: aut_fan_sw
+			on_active: app.toggle_automatic_fan(self.active)
+	BoxLayout:
+		Label:
+			id: door_lbl
+			text: 'Door: x'
+		Switch:
+			id: door_sw
+			on_active: app.toggle_door(self.active)
+		Label:
+			text: ' '
+		
+	BoxLayout:
+		canvas:
+			Color:
+				rgba: (47/255, 72/255, 91/255, 1)
+			Rectangle:
+				pos: self.pos
+				size: self.size
+		Label:
+			id: temp_lbl
+			text: 'Temperature: x'
+			bold: True
+			font_size: 20
+
+										
+	
