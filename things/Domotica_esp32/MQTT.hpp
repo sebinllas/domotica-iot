@@ -1,6 +1,6 @@
 #include <string.h>
 
-const char *MQTT_BROKER_ADRESS = "192.168.25.241";
+const char *MQTT_BROKER_ADRESS = "192.168.103.32";
 const uint16_t MQTT_PORT = 1883;
 const char *MQTT_CLIENT_NAME = "ESPClient_1";
 
@@ -9,7 +9,7 @@ const char *DEVICE_TYPE = "Light";
 const char *DEVICE_ID = "0";
 
 extern int led;
-extern int light;
+extern int light_state;
 extern int automatic_light;
 extern Servo myservo;
 extern int fan;
@@ -81,7 +81,7 @@ void OnMqttReceived(char *topic, byte *payload, unsigned int length)
 
     if ((char)payload[0] == '1')
     {
-      light = 1;
+      light_state = 1;
       Serial.println("recived signal to turn on light ");
 
       digitalWrite(led, HIGH);
@@ -89,7 +89,7 @@ void OnMqttReceived(char *topic, byte *payload, unsigned int length)
     }
     else if ((char)payload[0] == '0')
     {
-      light = 0;
+      light_state = 0;
       Serial.println("recived signal to turn off light ");
       digitalWrite(led, LOW);
       PublisMqttString("home/light/0", "0");
@@ -98,14 +98,14 @@ void OnMqttReceived(char *topic, byte *payload, unsigned int length)
     {
 
       automatic_light = 0;
-      if (light == 1)
+      if (light_state == 1)
       {
-        light = 0;
+        light_state = 0;
         digitalWrite(led, LOW);
       }
       else
       {
-        light = 1;
+        light_state = 1;
         digitalWrite(led, HIGH);
       }
     }
@@ -150,7 +150,7 @@ void OnMqttReceived(char *topic, byte *payload, unsigned int length)
     {
       Serial.println("recived signal to open the door ");
       PublisMqttString("home/door/0", "1");
-      myservo.write(183);
+      myservo.write(108);
     }
     else if ((char)payload[0] == '0')
     {
