@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      database: iot
+      port: 27017
+      host: localhost
+
