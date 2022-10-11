@@ -1,7 +1,4 @@
 spring:
   data:
     mongodb:
-      database: iot
-      port: 27017
-      host: localhost
-
+      uri: mongodb+srv://domoticaIot:domoticaIot@domoticaiot.sia8fcq.mongodb.net/iot?retryWrites=true&w=majority

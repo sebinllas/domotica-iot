@@ -1,21 +1,25 @@
 package co.edu.udea.backend.service;
 
+import co.edu.udea.backend.broker.HomeListener;
 import co.edu.udea.backend.exception.ResourceNotFoundException;
 import co.edu.udea.backend.model.Home;
 import co.edu.udea.backend.model.Device;
 
 import co.edu.udea.backend.repository.HomeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class DeviceService {
+    @Autowired
     private HomeRepository homeRepository;
 
-    public DeviceService(HomeRepository homeRepository) {
-        this.homeRepository = homeRepository;
-    }
+    @Autowired
+    private HomeListener homeListener;
+
+
 
     public Home registerDevice(String homeName, Device device) {
         Optional<Home> homeOptional = homeRepository.findById(homeName);

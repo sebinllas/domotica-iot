@@ -9,6 +9,6 @@ import java.time.LocalDateTime;
 public class Sensor {
     @MongoId
     private String name;
-    private String status;
+    private String value;
     private LocalDateTime lastUpdated;
 }
