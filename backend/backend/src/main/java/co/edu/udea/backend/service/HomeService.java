@@ -1,26 +1,24 @@
 package co.edu.udea.backend.service;
 
-import co.edu.udea.backend.broker.HomePublisher;
-import co.edu.udea.backend.model.Device;
+import co.edu.udea.backend.broker.HomeBroker;
 import co.edu.udea.backend.model.Home;
 import co.edu.udea.backend.model.Message;
 import co.edu.udea.backend.repository.HomeRepository;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class HomeService {
-    private HomeRepository homeRepository;
-    private HomePublisher homePublisher;
+    private final HomeRepository homeRepository;
+    private final HomeBroker homeBroker;
 
-    public HomeService(HomeRepository homeRepository, HomePublisher homePublisher) {
+    public HomeService(HomeRepository homeRepository, HomeBroker homeBroker) {
 
         this.homeRepository = homeRepository;
-        this.homePublisher = homePublisher;
+        this.homeBroker = homeBroker;
     }
 
     public List<Home> findAllHomes() {
@@ -33,14 +31,14 @@ public class HomeService {
 
     public void sendMessage(String homeName, String deviceName, String payload) {
         Message message = new Message(deviceName, payload);
-        this.sendMessage(homeName, Arrays.asList(message));
+        this.sendMessage(homeName, List.of(message));
     }
 
     public void sendMessage(String homeName, List<Message> messages) {
         //TODO query homerepository to verify whether or not the home exists
         Optional<Home> homeOptional = homeRepository.findById(homeName);
 
-        if (!homeOptional.isPresent()) {
+        if (homeOptional.isEmpty()) {
             System.err.println("A MESSAGE TO AN UNKNOWN HOME HAS BEEN RECEIVED {" + homeName + "}");
             return;
         }
@@ -59,7 +57,7 @@ public class HomeService {
 
     public void sendMessage(String message) {
         try {
-            this.homePublisher.publish(message);
+            this.homeBroker.publish(message);
         } catch (MqttException e) {
             e.printStackTrace();
         }

@@ -1,15 +1,11 @@
 package co.edu.udea.backend.controller;
 
-import co.edu.udea.backend.exception.ResourceNotFoundException;
-import co.edu.udea.backend.model.Device;
 import co.edu.udea.backend.model.Home;
 import co.edu.udea.backend.service.HomeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
