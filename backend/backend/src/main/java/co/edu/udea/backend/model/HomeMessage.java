@@ -8,12 +8,12 @@ import java.time.LocalDateTime;
 
 @Data
 @Document("messages")
-public class SensorMessage {
+public class HomeMessage {
     @MongoId
     private String id;
 
     private String deviceName;
     private String homeName;
     private String value;
-    private LocalDateTime lastUpdated;
+    private LocalDateTime dateTime;
 }
