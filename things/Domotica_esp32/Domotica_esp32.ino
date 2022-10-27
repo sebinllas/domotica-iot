@@ -1,4 +1,5 @@
 
+
 /*
 IoT Course
 Universidad de Antioquia
@@ -9,6 +10,8 @@ Universidad de Antioquia
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <Servo.h>
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
 
 #include "config.h"
 #include "MQTT.hpp"
@@ -41,6 +44,7 @@ DallasTemperature sensors(&oneWire);
 
 void setup()
 {
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); //disable   detector
   pinMode(led, OUTPUT);   // BUILTIN_LED pin as an output
   digitalWrite(led, LOW); // Light initial state is OFF
   myservo.attach(13);     // attaches the servo on pin 13 to the servo object

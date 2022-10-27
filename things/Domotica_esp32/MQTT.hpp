@@ -1,6 +1,6 @@
 #include <string.h>
 
-const char *MQTT_BROKER_ADRESS = "192.168.103.32";
+const char *MQTT_BROKER_ADRESS = "192.168.25.89";
 const uint16_t MQTT_PORT = 1883;
 const char *MQTT_CLIENT_NAME = "ESPClient_1";
 
