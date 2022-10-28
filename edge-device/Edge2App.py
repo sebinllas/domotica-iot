@@ -51,7 +51,7 @@ class Edge2App(App):
                 value 
                 if str(message.payload.decode("utf-8")) == "0":
                         value = "off"
-                else if str(message.payload.decode("utf-8")) == "1":
+                elif str(message.payload.decode("utf-8")) == "1":
                         value = "on"
                 self.client_hive.publish("home_outbound/home1/light1", value)
                 
@@ -60,7 +60,7 @@ class Edge2App(App):
                 value 
                 if str(message.payload.decode("utf-8")) == "0":
                         value = "off"
-                else if str(message.payload.decode("utf-8")) == "1":
+                elif str(message.payload.decode("utf-8")) == "1":
                         value = "on"
                 self.client_hive.publish("home_outbound/home1/fan1",value)
                 
@@ -69,7 +69,7 @@ class Edge2App(App):
                 value 
                 if str(message.payload.decode("utf-8")) == "0":
                         value = "off"
-                else if str(message.payload.decode("utf-8")) == "1":
+                elif str(message.payload.decode("utf-8")) == "1":
                         value = "on"
                 self.client_hive.publish("home_outbound/home1/door1", value)
                 
