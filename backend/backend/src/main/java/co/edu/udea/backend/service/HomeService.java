@@ -31,11 +31,18 @@ public class HomeService {
 
     public void sendMessage(String homeName, String deviceName, String payload) {
         Message message = new Message(deviceName, payload);
-        this.sendMessage(homeName, List.of(message));
+        //this.sendMessage(homeName, List.of(message));
+        String topic = String.format("home_inbound/%s/%s", homeName, deviceName);
+        try{
+            this.homeBroker.publish(topic, payload);
+        }catch (MqttException e){
+            System.err.println("Mqtt Exception");
+            e.printStackTrace();
+        }
+
     }
 
     public void sendMessage(String homeName, List<Message> messages) {
-        //TODO query homerepository to verify whether or not the home exists
         Optional<Home> homeOptional = homeRepository.findById(homeName);
 
         if (homeOptional.isEmpty()) {
@@ -48,8 +55,6 @@ public class HomeService {
             System.err.println("HOME IS OFFLINE (CANNOT RECEIVE MESSAGES) {" + homeName + "}");
             return;
         }
-
-        //TODO query devicerepository to verify devices existence
 
         StringBuilder sb = new StringBuilder();
         messages.forEach(message -> sb.append(message.getDeviceName()).append(",").append(message.getPayload()));
