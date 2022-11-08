@@ -1,6 +1,7 @@
 package co.edu.udea.backend.service;
 
 import co.edu.udea.backend.broker.HomeBroker;
+import co.edu.udea.backend.exception.ResourceNotFoundException;
 import co.edu.udea.backend.model.Device;
 import co.edu.udea.backend.model.Home;
 import co.edu.udea.backend.model.HomeMessage;
@@ -57,6 +58,14 @@ public class HomeMessageService {
     }
 
     public List<HomeMessage> getMessagesByHomeNameAndDeviceName(String homeName, String deviceName) {
+        Optional<Home> OptionalHome = homeRepository.findById(homeName);
+        if(OptionalHome.isEmpty()){
+            System.err.printf("home %s does not exist", homeName);
+            throw new ResourceNotFoundException(String.format("home %s does not exist", homeName));
+        } else if (OptionalHome.get().getDevices().stream().noneMatch(d -> d.getName().equals(deviceName))) {
+            System.err.printf("device %s does not exist in home %s", deviceName, homeName);
+            throw new ResourceNotFoundException(String.format("requested device does not exist in home %s", homeName));
+        }
         return this.homeMessageRepository.findByHomeNameAndDeviceName(homeName, deviceName);
     }
 
