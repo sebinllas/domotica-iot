@@ -25,11 +25,14 @@ public class SensorMessageListener implements IMqttMessageListener {
         SensorMessage sensorMessage = new SensorMessage();
 
         sensorMessage.setId(UUID.randomUUID().toString());
-        sensorMessage.setHomeName(topic.toString().split("/")[1]);
-        sensorMessage.setDeviceName(topic.toString().split("/", 3)[2]);
+        sensorMessage.setHomeName(topic.split("/")[1]);
+        sensorMessage.setDeviceName(topic.split("/", 3)[2]);
         sensorMessage.setValue(mqttMessage.toString());
         sensorMessage.setLastUpdated(LocalDateTime.now());
+
+        // TODO resend messages to frontend via webPublisher
         try {
+            System.out.println(sensorMessage.toString());
             sensorMessageService.saveSensorMessage(sensorMessage);
         } catch (Exception e) {
             e.printStackTrace();

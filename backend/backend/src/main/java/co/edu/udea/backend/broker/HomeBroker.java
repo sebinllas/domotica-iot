@@ -24,7 +24,7 @@ public class HomeBroker {
     }
 
     private void processMessage(String topic, MqttMessage message) {
-        System.out.printf("%s -> %s", topic, message);
+        System.out.printf("%s -> %s\n", topic, message);
     }
 
     public void publish(String message) throws MqttException {
@@ -33,7 +33,7 @@ public class HomeBroker {
 
     public void publish(String topic, String message) throws MqttException {
         if (!client.isConnected()) {
-            //todo log message client not connected
+            System.out.println("Client not connected");
             return;
         }
         MqttMessage msg = new MqttMessage(message.getBytes());
