@@ -1,6 +1,7 @@
 package co.edu.udea.backend.service;
 
 import co.edu.udea.backend.broker.HomeBroker;
+import co.edu.udea.backend.model.Device;
 import co.edu.udea.backend.model.Home;
 import co.edu.udea.backend.model.HomeMessage;
 import co.edu.udea.backend.repository.HomeRepository;
@@ -9,13 +10,13 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class HomeMessageService {
 
     private final HomeMessageRepository homeMessageRepository;
+
     private final HomeRepository homeRepository;
 
 
@@ -30,19 +31,33 @@ public class HomeMessageService {
 
     }
 
-    public void saveSensorMessage(HomeMessage homeMessage) {
-        Optional<Home> home = homeRepository.findById(homeMessage.getHomeName());
-        if (home.isEmpty()) {
-            System.err.printf("home %s does not exists\n", homeMessage.getHomeName());
+    public void saveMessage(HomeMessage homeMessage) {
+        Optional<Home> OptionalHome = homeRepository.findById(homeMessage.getHomeName());
+        if (OptionalHome.isEmpty()) {
+            System.err.printf("home %s does not exist", homeMessage.getHomeName());
             return;
         }
-        if (home.get().getDevices().stream()
-                .noneMatch(device -> device.getName().equals(homeMessage.getDeviceName()))) {
-            System.err.printf("device %s does not exists in home %s\n", homeMessage.getDeviceName(), homeMessage.getHomeName());
+        Home home = OptionalHome.get();
+        Set<Device> homeDevices = home.getDevices();
+        try {
+            homeDevices.stream()
+                    .filter(d -> d.getName().equals(homeMessage.getDeviceName()))
+                    .findFirst().orElseThrow().setLastUpdated(LocalDateTime.now());
+        } catch (NoSuchElementException e) {
+            System.err.printf("device %s does not exist in home %s",
+                    homeMessage.getDeviceName(),
+                    home.getName()
+            );
             return;
         }
+        home.setDevices(homeDevices);
+        homeRepository.save(home);
         homeMessageRepository.save(homeMessage);
 
+    }
+
+    public List<HomeMessage> getMessagesByHomeNameAndDeviceName(String homeName, String deviceName) {
+        return this.homeMessageRepository.findByHomeNameAndDeviceName(homeName, deviceName);
     }
 
     public void messageArrived(String topic, MqttMessage mqttMessage) {
@@ -50,12 +65,15 @@ public class HomeMessageService {
         HomeMessage homeMessage = new HomeMessage();
 
         homeMessage.setId(UUID.randomUUID().toString());
-        homeMessage.setHomeName(topic.toString().split("/")[1]);
-        homeMessage.setDeviceName(topic.toString().split("/", 3)[2]);
+        homeMessage.setHomeName(topic.split("/")[1]);
+        homeMessage.setDeviceName(topic.split("/", 3)[2]);
         homeMessage.setValue(mqttMessage.toString());
         homeMessage.setDateTime(LocalDateTime.now());
+
+        // TODO resend messages to frontend via webPublisher
         try {
-            this.saveSensorMessage(homeMessage);
+            System.out.println(homeMessage.toString());
+            this.saveMessage(homeMessage);
         } catch (Exception e) {
             e.printStackTrace();
         }
