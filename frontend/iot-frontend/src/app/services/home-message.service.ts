@@ -15,13 +15,15 @@ export class HomeMessageService {
   constructor(private http: HttpClient) {}
   HOME_NAME = 'home1';
   sendMessage(deviceName: string, message: string) {
+    // tslint:disable-next-line: no-console
     console.log(`sending request to`);
     return this.http
       .post(
         `http://localhost:8080/home/${this.HOME_NAME}/${deviceName}/${message}`,
-        {}
+        {},
       )
       .subscribe((data) => {
+        // tslint:disable-next-line:no-console
         console.log(data);
       });
   }

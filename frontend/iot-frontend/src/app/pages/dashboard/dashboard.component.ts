@@ -1,10 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
-import { NbThemeService } from '@nebular/theme';
-import { takeWhile } from 'rxjs/operators';
-import { SolarData } from '../../@core/data/solar';
-import { IMqttMessage, MqttService } from 'ngx-mqtt';
-import { Subscription } from 'rxjs';
-import { HomeDataService } from '../../services/home-data.service';
+import { Component, OnDestroy } from "@angular/core";
+import { NbThemeService } from "@nebular/theme";
+import { takeWhile } from "rxjs/operators";
+import { SolarData } from "../../@core/data/solar";
+import { IMqttMessage, MqttService } from "ngx-mqtt";
+import { Subscription } from "rxjs";
+import { HomeDataService } from "../../services/home-data.service";
 
 interface CardSettings {
   title: string;
@@ -17,9 +17,9 @@ interface CardSettings {
 }
 
 @Component({
-  selector: 'ngx-dashboard',
-  styleUrls: ['./dashboard.component.scss'],
-  templateUrl: './dashboard.component.html',
+  selector: "ngx-dashboard",
+  styleUrls: ["./dashboard.component.scss"],
+  templateUrl: "./dashboard.component.html",
 })
 export class DashboardComponent implements OnDestroy {
   private alive = true;
@@ -27,28 +27,28 @@ export class DashboardComponent implements OnDestroy {
 
   solarValue: number;
   lightCard: CardSettings = {
-    title: 'Light',
-    iconClass: 'nb-lightbulb',
-    type: 'primary',
-    deviceName: 'light1',
+    title: "Light",
+    iconClass: "nb-lightbulb",
+    type: "primary",
+    deviceName: "light1",
     on: true,
     auto: false,
     enableAuto: true,
   };
   fanCard: CardSettings = {
-    title: 'Fan',
-    iconClass: 'nb-snowy-circled',
-    type: 'success',
-    deviceName: 'fan1',
+    title: "Fan",
+    iconClass: "nb-snowy-circled",
+    type: "success",
+    deviceName: "fan1",
     on: true,
     auto: false,
     enableAuto: true,
   };
   doorCard: CardSettings = {
-    title: 'Door',
-    iconClass: 'nb-home',
-    type: 'info',
-    deviceName: 'door1',
+    title: "Door",
+    iconClass: "nb-home",
+    type: "info",
+    deviceName: "door1",
     on: true,
     auto: false,
     enableAuto: false,
@@ -63,7 +63,6 @@ export class DashboardComponent implements OnDestroy {
   ];
 
   updateCards() {
-    console.log(this.lightCard);
     this.commonStatusCardsSet = [this.lightCard, this.fanCard, this.doorCard];
   }
   statusCardsByThemes: {
@@ -77,15 +76,15 @@ export class DashboardComponent implements OnDestroy {
     corporate: [
       {
         ...this.lightCard,
-        type: 'warning',
+        type: "warning",
       },
       {
         ...this.fanCard,
-        type: 'primary',
+        type: "primary",
       },
       {
         ...this.doorCard,
-        type: 'danger',
+        type: "danger",
       },
     ],
     dark: this.commonStatusCardsSet,
@@ -98,25 +97,24 @@ export class DashboardComponent implements OnDestroy {
     private homeDataService: HomeDataService
   ) {
     this.subscription = this._mqttService
-      .observe('web_inbound/#')
+      .observe("web_inbound/#")
       .subscribe((message: IMqttMessage) => {
         const topic = message.topic;
         const payload = message.payload.toString();
 
         const action = {
-          'web_inbound/home1/light1': () => {
-            console.log(payload);
-            this.lightCard = { ...this.lightCard, on: payload === 'on' };
+          "web_inbound/home1/light1": () => {
+            this.lightCard = { ...this.lightCard, on: payload === "on" };
           },
-          'web_inbound/home1/fan1': () => {
+          "web_inbound/home1/fan1": () => {
             this.fanCard = {
               ...this.fanCard,
-              on: payload === 'on',
+              on: payload === "on",
             };
           },
-          'web_inbound/home1/door1': () => {
+          "web_inbound/home1/door1": () => {
             this.doorCard = {
-              on: payload === 'on',
+              on: payload === "on",
               ...this.doorCard,
             };
           },
@@ -144,12 +142,12 @@ export class DashboardComponent implements OnDestroy {
     this.alive = false;
   }
 
+  // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
     this.homeDataService.getTemperatureData();
-    this.homeDataService.getLightData()
-    .subscribe((data) => {
+    this.homeDataService.getLightData().subscribe((data) => {
       // tslint:disable-next-line: no-console
       console.log(data[0]);
-    });;
+    });
   }
 }

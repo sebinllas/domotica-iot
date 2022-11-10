@@ -16,7 +16,7 @@ export class TemperatureChartComponent implements OnDestroy {
 
   constructor(
     private homeDataService: HomeDataService,
-    private theme: NbThemeService
+    private theme: NbThemeService,
   ) {
     this.themeSubscription = this.theme.getJsTheme().subscribe((config) => {
       const colors: any = config.variables;
@@ -60,6 +60,7 @@ export class TemperatureChartComponent implements OnDestroy {
     });
   }
 
+  // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit(): void {
     this.getTemperature();
   }

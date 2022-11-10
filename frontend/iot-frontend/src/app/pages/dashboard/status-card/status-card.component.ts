@@ -40,7 +40,7 @@ export class StatusCardComponent {
 
   constructor(
     private messageService: MessageService,
-    private homeMessageService: HomeMessageService
+    private homeMessageService: HomeMessageService,
   ) {}
 
   checked: boolean = true;
@@ -57,7 +57,7 @@ export class StatusCardComponent {
     });
     this.homeMessageService.sendMessage(
       this.deviceName,
-      this.on ? 'on' : 'off'
+      this.on ? 'on' : 'off',
     );
   }
   toggleAuto() {
@@ -69,7 +69,7 @@ export class StatusCardComponent {
     });
     this.homeMessageService.sendMessage(
       this.deviceName,
-      this.auto ? 'auto' : 'manual'
+      this.auto ? 'auto' : 'manual',
     );
   }
 }
