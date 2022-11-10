@@ -29,10 +29,10 @@ export class PagesComponent {
       .observe('web_inbound/#')
       .subscribe((message: IMqttMessage) => {
         this.messageService.add({
-          severity: 'warn',
+          severity: 'success',
           summary: 'Message received from broker',
           detail: message.payload.toString(),
-          sticky: true,
+          life: 2000,
         });
       });
   }

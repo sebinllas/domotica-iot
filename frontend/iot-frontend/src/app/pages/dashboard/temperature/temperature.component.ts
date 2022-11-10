@@ -42,8 +42,6 @@ export class TemperatureComponent implements OnDestroy {
       .subscribe((message: IMqttMessage) => {
         // tslint:disable-next-line: radix
         this.value = parseInt(message.payload.toString());
-        // tslint:disable-next-line:no-console
-        console.log(message.payload.toString());
       });
 
     this.themeService

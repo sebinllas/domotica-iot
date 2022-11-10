@@ -119,8 +119,10 @@ export class DashboardComponent implements OnDestroy {
             };
           },
         };
-        action[topic]();
-        this.updateCards();
+        if (topic in action) {
+          action[topic]();
+          this.updateCards();
+        }
       });
 
     this.themeService
