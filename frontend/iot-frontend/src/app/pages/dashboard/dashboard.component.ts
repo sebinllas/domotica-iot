@@ -63,6 +63,7 @@ export class DashboardComponent implements OnDestroy {
   ];
 
   updateCards() {
+    console.log(this.lightCard);
     this.commonStatusCardsSet = [this.lightCard, this.fanCard, this.doorCard];
   }
   statusCardsByThemes: {
@@ -102,15 +103,15 @@ export class DashboardComponent implements OnDestroy {
         const topic = message.topic;
         const payload = message.payload.toString();
 
-        console.log(topic);
         const action = {
           "web_inbound/home1/light1": () => {
-            this.lightCard = { on: payload === "on", ...this.lightCard };
+            console.log(payload);
+            this.lightCard = { ...this.lightCard, on: payload === "on" };
           },
           "web_inbound/home1/fan1": () => {
             this.fanCard = {
-              on: payload === "on",
               ...this.fanCard,
+              on: payload === "on",
             };
           },
           "web_inbound/home1/door1": () => {
@@ -137,6 +138,10 @@ export class DashboardComponent implements OnDestroy {
       .subscribe((data) => {
         this.solarValue = data;
       });
+  }
+
+  ngOnChanges() {
+    this.updateCards();
   }
 
   ngOnDestroy() {

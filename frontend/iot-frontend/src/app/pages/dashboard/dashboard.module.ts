@@ -25,6 +25,7 @@ import { KittenComponent } from "./kitten/kitten.component";
 import { SecurityCamerasComponent } from "./security-cameras/security-cameras.component";
 import { ElectricityComponent } from "./electricity/electricity.component";
 import { ElectricityChartComponent } from "./electricity/electricity-chart/electricity-chart.component";
+import { TemperatureChartComponent } from "./temperature-chart/temperature-chart.component";
 import { WeatherComponent } from "./weather/weather.component";
 import { SolarComponent } from "./solar/solar.component";
 import { PlayerComponent } from "./rooms/player/player.component";
@@ -33,8 +34,9 @@ import { TrafficChartComponent } from "./traffic/traffic-chart.component";
 import { FormsModule } from "@angular/forms";
 import { ToggleButtonModule } from "primeng/togglebutton";
 import { KnobModule } from "primeng/knob";
-import { TemperatureChartComponent } from "./temperature-chart/temperature-chart.component";
+// import { ChartjsLineComponent } from "../charts/chartjs/chartjs-line.component";
 /* import { PrimeIcons } from "primeng/api"; */
+import { ChartModule } from "angular2-chartjs";
 
 @NgModule({
   imports: [
@@ -54,6 +56,7 @@ import { TemperatureChartComponent } from "./temperature-chart/temperature-chart
     ToggleButtonModule,
     KnobModule,
     NbToggleModule,
+    ChartModule,
     /*     PrimeIcons, */
   ],
   declarations: [

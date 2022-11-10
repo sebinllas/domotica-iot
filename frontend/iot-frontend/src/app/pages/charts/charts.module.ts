@@ -8,7 +8,6 @@ import { ThemeModule } from '../../@theme/theme.module';
 
 import { ChartsRoutingModule, routedComponents } from './charts-routing.module';
 import { ChartjsBarComponent } from './chartjs/chartjs-bar.component';
-import { ChartjsLineComponent } from './chartjs/chartjs-line.component';
 import { ChartjsPieComponent } from './chartjs/chartjs-pie.component';
 import { ChartjsMultipleXaxisComponent } from './chartjs/chartjs-multiple-xaxis.component';
 import { ChartjsBarHorizontalComponent } from './chartjs/chartjs-bar-horizontal.component';
@@ -29,7 +28,6 @@ import { EchartsRadarComponent } from './echarts/echarts-radar.component';
 
 const components = [
   ChartjsBarComponent,
-  ChartjsLineComponent,
   ChartjsPieComponent,
   ChartjsMultipleXaxisComponent,
   ChartjsBarHorizontalComponent,

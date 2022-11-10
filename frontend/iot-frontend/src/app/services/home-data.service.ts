@@ -13,24 +13,14 @@ export class HomeDataService {
 
   getTemperatureData() {
     return this.http
-      .get(`http://localhost:8080/home/temp/${this.HOME_NAME}`)
-      .subscribe((data) => {
-        //console.log(Object.values(data));
-        //console.log(typeof data);
-        const temperature = {};
-        for (const element of Object.values(data)) {
-          temperature[element.dateTime] = element.value;
-        }
-        console.log({ temperature });
-        return temperature;
-      });
+      .get(`http://localhost:8080/home/temp/${this.HOME_NAME}`);
   }
 
   getLightData() {
     return this.http
       .get(`http://localhost:8080/home/light/${this.HOME_NAME}`)
       .subscribe((data) => {
-        console.log(data);
+        console.log(data[0]);
       });
   }
 }
