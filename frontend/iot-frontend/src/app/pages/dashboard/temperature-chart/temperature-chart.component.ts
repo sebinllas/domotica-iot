@@ -84,8 +84,13 @@ export class TemperatureChartComponent implements OnDestroy {
   updateChart(value: any) {
     this.labels.unshift(new Date().toISOString());
     this.values.unshift(value);
-    this.values.pop();
+    let rest = this.values.pop();
     this.labels.pop();
+    this.values.map((x) => {
+      this.prom += parseFloat(x);
+    });
+    this.prom += (parseFloat(value) - parseFloat(rest));
+    this.prom = (this.prom / this.values.length);
 
     this.data = {
       labels: this.labels,
