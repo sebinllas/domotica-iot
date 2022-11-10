@@ -6,7 +6,7 @@ import {
 } from '../../../@core/data/temperature-humidity';
 import { takeWhile } from 'rxjs/operators';
 import { forkJoin, Subscription } from 'rxjs';
-//mqtt imports
+// mqtt imports
 import { IMqttMessage, MqttService } from 'ngx-mqtt';
 
 @Component({
@@ -35,7 +35,7 @@ export class TemperatureComponent implements OnDestroy {
   constructor(
     private themeService: NbThemeService,
     private temperatureHumidityService: TemperatureHumidityData,
-    private _mqttService: MqttService
+    private _mqttService: MqttService,
   ) {
     this.subscription = this._mqttService
       .observe('web_inbound/home1/temp1')

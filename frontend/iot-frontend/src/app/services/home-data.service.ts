@@ -19,8 +19,5 @@ export class HomeDataService {
   getLightData() {
     return this.http
       .get(`http://localhost:8080/home/light/${this.HOME_NAME}`)
-      .subscribe((data) => {
-        console.log(data[0]);
-      });
   }
 }

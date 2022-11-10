@@ -22,8 +22,8 @@ import {ToastModule} from 'primeng/toast';
     PagesComponent,
   ],
   providers: [
-    MessageService
-  ]
+    MessageService,
+  ],
 })
 export class PagesModule {
 }

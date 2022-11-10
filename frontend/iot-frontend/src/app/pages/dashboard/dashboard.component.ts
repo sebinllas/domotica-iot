@@ -146,6 +146,10 @@ export class DashboardComponent implements OnDestroy {
 
   ngOnInit() {
     this.homeDataService.getTemperatureData();
-    this.homeDataService.getLightData();
+    this.homeDataService.getLightData()
+    .subscribe((data) => {
+      // tslint:disable-next-line: no-console
+      console.log(data[0]);
+    });;
   }
 }
