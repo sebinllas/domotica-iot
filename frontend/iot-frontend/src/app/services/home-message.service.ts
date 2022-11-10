@@ -1,9 +1,9 @@
-import { Injectable, EventEmitter, Output } from "@angular/core";
-import { ReplaySubject } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { Injectable, EventEmitter, Output } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class HomeMessageService {
   @Output() disparador: EventEmitter<any> = new EventEmitter();
@@ -13,7 +13,7 @@ export class HomeMessageService {
   enviarObservable = this.enviarMensajeSubject.asObservable();
 
   constructor(private http: HttpClient) {}
-  HOME_NAME = "home1";
+  HOME_NAME = 'home1';
   sendMessage(deviceName: string, message: string) {
     console.log(`sending request to`);
     return this.http

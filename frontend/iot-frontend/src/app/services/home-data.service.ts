@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class HomeDataService {
   constructor(private http: HttpClient) {
-    this.HOME_NAME = "home1";
+    this.HOME_NAME = 'home1';
   }
 
-  HOME_NAME = "home1";
+  HOME_NAME = 'home1';
 
   getTemperatureData() {
     return this.http

@@ -1,11 +1,11 @@
-import { Component, OnDestroy } from "@angular/core";
-import { NbThemeService, NbColorHelper } from "@nebular/theme";
-import { HomeDataService } from "../../../services/home-data.service";
+import { Component, OnDestroy } from '@angular/core';
+import { NbThemeService, NbColorHelper } from '@nebular/theme';
+import { HomeDataService } from '../../../services/home-data.service';
 
 @Component({
-  selector: "ngx-temperature-chart",
-  templateUrl: "./temperature-chart.component.html",
-  styleUrls: ["./temperature-chart.component.scss"],
+  selector: 'ngx-temperature-chart',
+  templateUrl: './temperature-chart.component.html',
+  styleUrls: ['./temperature-chart.component.scss'],
 })
 export class TemperatureChartComponent implements OnDestroy {
   data: any;
@@ -73,17 +73,16 @@ export class TemperatureChartComponent implements OnDestroy {
   }
 
   tempData(data) {
-    console.log(data);
     data.map((x) => {
       this.prom += parseFloat(x.value);
-    })
+    });
     this.prom = (this.prom / data.length);
     this.data = {
       labels: data.map((item) => item.dateTime),
       datasets: [
         {
           data: data.map((item) => item.value),
-          label: "Temperature",
+          label: 'Temperature',
           backgroundColor:  NbColorHelper.hexToRgbA('#5AA454', 0.3),
           borderColor: '#5AA454',
         },
