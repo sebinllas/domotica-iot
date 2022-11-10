@@ -94,7 +94,7 @@ export class DashboardComponent implements OnDestroy {
     private themeService: NbThemeService,
     private solarService: SolarData,
     private _mqttService: MqttService,
-    private homeDataService: HomeDataService
+    private homeDataService: HomeDataService,
   ) {
     this.subscription = this._mqttService
       .observe('web_inbound/#')
